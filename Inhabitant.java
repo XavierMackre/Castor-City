@@ -1,14 +1,35 @@
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
 
 public class Inhabitant {
     
-    int workingHour;
-    int workingMinute;
-    int favouriteWork;  // 0:industrial, 1:office
+	public String name;
+	public Image img;
+    public int workingHour;
+    public int workingMinute;
+    public int favouriteWork;  // 0:industrial, 1:office
+    public int satisfaction; // from 0:unhappy to 4:happy
+    
     
     // constructor
-    public Inhabitant() {
+    public Inhabitant(String name) {
         
+    	this.name = name;
+    	this.satisfaction = 2;
+    	
+    	// random image
+    	// ATTENTION : ici le fichier s'appelle faceX.jpg, avec X entier de 0 à 9
+    	int i = (int) (10* Math.random());
+    	try {
+    		img = ImageIO.read(new File("face"+i+".jpg"));
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
+    	
         // random favourite work: 0 or 1
         favouriteWork = (int) (2 * Math.random());
         

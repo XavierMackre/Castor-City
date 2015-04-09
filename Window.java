@@ -1,25 +1,38 @@
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Window extends JFrame {
     
+	// declaration of panels
+	// principal panels
+	public JPanel leftPan = new JPanel();
+	public JPanel rightPan = new JPanel();
+	public JPanel bigPan = new JPanel();
+
+	// panels in rightPan
+	public JPanel peopleFacePan = new JPanel();
+	
+	// constructor
     public Window() {
         
-        // dÃ©claration des Panels
-        JPanel leftPan = new JPanel();
-        JPanel rightPan = new JPanel();
-        JPanel bigPan = new JPanel();
-        
-        // organisation des Panels
+        // organisation of the principal panel
         bigPan.setLayout(new BorderLayout());
         bigPan.add(leftPan, BorderLayout.WEST);
         bigPan.add(rightPan, BorderLayout.EAST);
         
+        // organisation of the right panel
+        	// rightPan.setLayout(new BorderLayout());
+        
+        // organisation of peopleFacePan
+        peopleFacePan.setLayout(new GridLayout(2,5));
+        	// événement qui affiche les têtes des peronnes travaillant / habitant à l'endroit sélectionné
         
         this.setTitle("Castor City");
-        this.setLocationRelativeTo(null); // place la fenÃªtre au centre de l'Ã©cran
+        this.setLocationRelativeTo(null); // set the window at the centre of the screen
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
         
