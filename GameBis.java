@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 
 import javax.swing.Timer;
-
+import java.util.random;
 
 public class GameBis {
 	
@@ -12,13 +12,14 @@ public class GameBis {
 	public BoardRoad boardRoad;
 	public BoardBuilding boardBuilding;
 	public Window window;
+	Random randomGenerator = new Random();
 	
 	// constructor: initialization of the game
 	public GameBis() { 	
 		
 		// initialization of the size of the game
-		this.width = 50;
-		this.height = 50;
+		this.width = 12;
+		this.height = 12;
 		
 		// initialization of the boards of roads and constructions
 		boardRoad = new BoardRoad(); 	/* quels paramètres ?*/
