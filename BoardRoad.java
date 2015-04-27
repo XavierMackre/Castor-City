@@ -1,9 +1,8 @@
-package miniproject;
-
 public class BoardRoad {
+	
     Road[][] BoardRoad;
-    int x;
-    int y;
+    int x; // que signifie ce paramètre ?
+    int y; // ?
 
     
     public BoardRoad(int x,int y){

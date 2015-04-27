@@ -3,7 +3,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.Timer;
 
 public class Game {
-    public static void main(String[] args) {
+    	
+	public static void main(String[] args) {
         Timer timer;
         int hour=0;
         int minute=0;

@@ -2,12 +2,12 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Window extends JFrame {
     
-	// declaration of panels
+	// DECLARATION OF PANELS
+	
 	// principal panels
 	public JPanel leftPan = new JPanel();
 	public JPanel rightPan = new JPanel();
@@ -15,6 +15,7 @@ public class Window extends JFrame {
 
 	// panels in rightPan
 	public JPanel peopleFacePan = new JPanel();
+	
 	
 	// constructor
     public Window() {
