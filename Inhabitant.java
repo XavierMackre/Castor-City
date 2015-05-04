@@ -21,6 +21,7 @@ public class Inhabitant {
     	this.name = name;
     	this.satisfaction = 2;
     	
+    	/* ERREUR
     	// random image
     	// ATTENTION : ici le fichier s'appelle faceX.jpg, avec X entier de 0 à 9
     	int i = (int) (10* Math.random());
@@ -29,6 +30,7 @@ public class Inhabitant {
     	} catch (IOException e) {
     		e.printStackTrace();
     	}
+    	*/
     	
         // random favourite work: 0 or 1
         favouriteWork = (int) (2 * Math.random());

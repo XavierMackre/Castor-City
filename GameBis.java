@@ -1,12 +1,18 @@
 import java.util.LinkedList;
+import java.util.Random;
 
 import javax.swing.Timer;
-import java.util.random;
 
 public class GameBis {
 	
-	protected int width; // width of the map (number of building boxes)
-	protected int height; // height of the map (number of building boxes)
+	// dimensions
+	protected int width; // width of the building board (number of building in each )
+	protected int height; // height of the building board (number of building boxes)
+	public int widthRoad; // width of the road board
+	public int heightRoad; // height of the road board
+	public int pxWidth; // number of pixels of the map (width)
+	public int pxHeight; // number of pixels of the map (height)
+	
 	public LinkedList<Inhabitant> population; // contains all the inhabitants
 	public double averageSatisfaction; // satisfaction of all the population
 	public BoardRoad boardRoad;
@@ -18,20 +24,26 @@ public class GameBis {
 	public GameBis() { 	
 		
 		// initialization of the size of the game
-		this.width = 12;
+		this.width = 12; // ATTENTION : dimensions of the map (can be changed)
 		this.height = 12;
+		this.widthRoad = width * 2 + 1;
+		this.heightRoad = height * 2 + 1;
+		this.pxWidth = (width * 50) + ((width + 1) * 20); // ATTENTION TAILLE DES IMAGES : 50*50px (constructions), 20px (roads) (can be changed)
+		this.pxHeight = (width * 50) + ((width + 1) * 20);
 		
 		// initialization of the boards of roads and constructions
-		boardRoad = new BoardRoad(); 	/* quels paramètres ?*/
+		boardRoad = new BoardRoad(widthRoad, heightRoad); 
 		boardBuilding = new BoardBuilding(width, height);
 		
+		/*
 		// initialization of 50 inhabitants ready to moving in at the beginning of the game
 		for (int i=0 ; i<50 ; i++) {
 			population.add(new Inhabitant("Inhabitant"+i));
 		}
+		*/
 		
 		// display of the game
-		window = new Window();
+		window = new Window(pxWidth, pxHeight, boardBuilding, boardRoad);
 		
 	}
 
