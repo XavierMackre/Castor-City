@@ -1,9 +1,9 @@
-package miniproject;
-
 public class Road {
-    int x;
+    
+	int x;
     int y;
-    int carnumber;
+    int carNumber;
+    
     
     public Road(int x,int y){
         x=this.x;

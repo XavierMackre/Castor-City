@@ -1,0 +1,10 @@
+LinkedList : liste chainée
+LinkedList<type des objets contenus, optionnel> nomListe = new LinkedList<type des objets contenus>() ; 
+// création de la liste
+nomListe.add(objet) ; //ajout d'un élément en fin de liste
+type a = nomListe.get(1) ; //accès direct aux objets
+nomListe.remove(1) ; //suppression d'un élément (0 est le 1er élément entré)
+int N = nomListe.size() ; //nombre d'éléments de la liste
+nomList.isEmpty() : renvoie vrai si l'objet est vide
+nomList.removeAll() : efface tout le contenu de l'objet
+nomList.contains (Objet element) : renvoie vrai si l'élément passé en paramètre est dans la liste

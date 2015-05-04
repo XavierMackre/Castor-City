@@ -12,7 +12,7 @@ public class Inhabitant {
     public int workingHour;
     public int workingMinute;
     public int favouriteWork;  // 0:industrial, 1:office
-    public int satisfaction; // from 0:unhappy to 4:happy
+    protected int satisfaction; // from 0:unhappy to 4:happy
     
     
     // constructor
@@ -25,7 +25,7 @@ public class Inhabitant {
     	// ATTENTION : ici le fichier s'appelle faceX.jpg, avec X entier de 0 à 9
     	int i = (int) (10* Math.random());
     	try {
-    		img = ImageIO.read(new File("face"+i+".jpg"));
+    		img = ImageIO.read(new File("face"+i+".jpg")); // à tester
     	} catch (IOException e) {
     		e.printStackTrace();
     	}
@@ -39,6 +39,15 @@ public class Inhabitant {
         workingHour = (int) workingTime;
         double minute = ( workingTime - workingHour ) * 60;
         workingMinute = (int) minute;
+    }
+    
+    
+    /**
+     * getter of satisfaction
+     * @return the satisfaction of the inhabitant (int)
+     */
+    public int getSatisfaction() {
+    	return this.satisfaction;
     }
     
     

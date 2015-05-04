@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 
-public class Game {
+public class Gameter {
     
     Timer timer;
     int minute= 0;
@@ -16,16 +16,10 @@ public class Game {
     int year=2015;
     int[] date= {minute, hour, day, month, year};
     
-    class TimerClass implements ActionListener {
-
-                    public void actionPerformed (ActionEvent e) {
-                        horloge(date);
-
-                    }
-        
-    }
-    private void  horloge (){
-        minute +=1;
+    
+    //méthode pour faire avancer l'heure de 5 minutes
+    public void horloge (){
+        minute +=5;
         if(minute==60){
             hour++;
             minute=0;
@@ -43,10 +37,16 @@ public class Game {
             }
         }
     }
+    //définie l'action à chaque tic du timer
+    class TimerClass implements ActionListener {
 
+                    public void actionPerformed (ActionEvent e) {
+                        horloge();
 
-    
-    public Game {
+                    }
+    }
+   //constructeur. Lance le timer
+    public Gameter(){
                    
                    
         timer = new Timer (100, new TimerClass());
@@ -54,4 +54,3 @@ public class Game {
         
     }
 }
-    

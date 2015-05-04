@@ -3,7 +3,7 @@
 public class City {
     // define array here
     Building[][] tab;
-    
+     
 
     public void City ( int height, int length){
     
