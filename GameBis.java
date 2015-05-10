@@ -89,4 +89,28 @@ public class GameBis {
 		return s/(population.size());
 	}
 	
+	/**
+	     * This is the array of lists of inhabitants ordered by their time of departure*
+	     * */
+	public LinkedList<LinkedList<Inhabitant>> allinhabDeparture() {
+	LinkedList<LinkedList<Inhabitant>> allinhabDeparture =new LinkedList<LinkedList<Inhabitant>>();
+	LinkedList<Inhabitant> temp;
+
+	for(int i=0;i<187;i++) {
+		temp=new LinkedList<Inhabitant>();
+		allinhabDeparture.add(temp);
+	}
+	
+	for(int i=0;i<population.size();i++){
+		int h=population.get(i).getworkingHour();
+		int m=population.get(i).getworkingMinute();
+		int t=60*h+m;
+		int q=t/5;
+		allinhabDeparture.get(q).add(population.get(i));
+	}
+	return allinhabDeparture;
+	}
+	
+	
+	
 }

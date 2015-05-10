@@ -51,5 +51,14 @@ public class Inhabitant {
     	return this.satisfaction;
     }
     
+    /*getter of working time*/
+    public int getworkingHour(){
+    	return this.workingHour;
+    }
+
+    public int getworkingMinute(){
+    	return this.workingMinute;
+    }
+    
     
 }
