@@ -7,8 +7,8 @@ import javax.imageio.ImageIO;
 
 public class Inhabitant {
     
-	public String name;
-	public Image img;
+	public String name; // utile?
+	public Image img; // utile?
     public int workingHour;
     public int workingMinute;
     public int favouriteWork;  // 0:industrial, 1:office
@@ -16,9 +16,8 @@ public class Inhabitant {
     
     
     // constructor
-    public Inhabitant(String name) {
+    public Inhabitant() {
         
-    	this.name = name;
     	this.satisfaction = 2;
     	
     	/* ERREUR

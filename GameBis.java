@@ -38,7 +38,7 @@ public class GameBis {
 		/*
 		// initialization of 50 inhabitants ready to moving in at the beginning of the game
 		for (int i=0 ; i<50 ; i++) {
-			population.add(new Inhabitant("Inhabitant"+i));
+			population.add(new Inhabitant());
 		}
 		*/
 		
