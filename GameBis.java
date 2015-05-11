@@ -1,3 +1,8 @@
+
+import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -19,6 +24,14 @@ public class GameBis {
 	public BoardBuilding boardBuilding;
 	public Window window;
 	Random randomGenerator = new Random();
+        
+        Timer timer;
+        int minute= 0;
+        int hour=0;
+        int day=1;
+        int month=1;
+        int year=2015;
+        int[] date= {minute, hour, day, month, year};
 	
 	// constructor: initialization of the game
 	public GameBis() { 	
@@ -41,6 +54,9 @@ public class GameBis {
 			population.add(new Inhabitant());
 		}
 		*/
+                //initialistation du timer
+		timer = new Timer (100, new TimerClass());
+		timer.start();
 		
 		// display of the game
 		window = new Window(pxWidth, pxHeight, boardBuilding, boardRoad);
@@ -88,6 +104,32 @@ public class GameBis {
 		}
 		return s/(population.size());
 	}
+        //méthode pour faire avancer l'heure de 5 minutes
+        public void horloge (){
+            minute +=5;
+            if(minute==60){
+                hour++;
+                minute=0;
+                if(hour==24){
+                    hour=0;
+                    day++;
+                    if(day==30){
+                        day=1;
+                        month++;
+                        if (month==12){
+                            month=1;
+                            year++;
+                        }
+                    }
+                }
+            }
+        }
+        class TimerClass implements ActionListener {
+            public void actionPerformed (ActionEvent e) {
+                horloge();
+
+            }
+        }
 	
 	/**
 	     * This is the array of lists of inhabitants ordered by their time of departure*
