@@ -1,5 +1,7 @@
 
-import java.awt.Window;
+// import java.awt.Window;
+// si on importe cette chose ça empeche le fonctionnement de ma classe Window
+// si c'est utile je peux changer le nom de ma classe Window pour faire marcher ça
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -48,12 +50,6 @@ public class GameBis {
 		boardRoad = new BoardRoad(widthRoad, heightRoad); 
 		boardBuilding = new BoardBuilding(width, height);
 		
-		/*
-		// initialization of 50 inhabitants ready to moving in at the beginning of the game
-		for (int i=0 ; i<50 ; i++) {
-			population.add(new Inhabitant());
-		}
-		*/
                 //initialistation du timer
 		timer = new Timer (100, new TimerClass());
 		timer.start();
@@ -71,8 +67,7 @@ public class GameBis {
 
 	
 	/**
-	 * getter of width
-	 * @return the width of the city
+	 * getter of width (width of the city)
 	 */
 	public int getWidth() {
 		return this.width;
@@ -80,19 +75,22 @@ public class GameBis {
 	
 	
 	/**
-	 * getter of height
-	 * @return the height of the city
+	 * getter of height (height of the city)
 	 */
 	public int getHeight() {
 		return this.height;
 	}
 	
+	
+	/**
+	 * getter of the boardBuilding
+	 */
 	public BoardBuilding getBoardBuilding() {
 		return this.boardBuilding;
 	}
 	
 	
-	/**
+	/** UTILE ?
 	 * compute the average satisfaction of the whole population
 	 * @param LinkedList<Inhabitant> population
 	 * @return the average satisfaction (double)
@@ -104,6 +102,16 @@ public class GameBis {
 		}
 		return s/(population.size());
 	}
+	
+	
+	/** UTILE QUE SI ON GARDER UN ATTRIBUT "POPULATION" DANS LA CLASSE GAME
+	 * copy the population initialized in boardBuilding into Game
+	 */
+	public void UpdatePop() { // ATTENTION : A METTRE A JOUR AVEC LE TIMER
+		this.population = boardBuilding.getPopulation();
+	}
+
+	
         //méthode pour faire avancer l'heure de 5 minutes
         public void horloge (){
             minute +=5;
@@ -131,6 +139,7 @@ public class GameBis {
             }
         }
 	
+        
 	/**
 	     * This is the array of lists of inhabitants ordered by their time of departure*
 	     * */
