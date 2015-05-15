@@ -36,11 +36,11 @@ public class Inhabitant {
     int yLivingPlace;
     int xWorkingPlace; // je me demande si l'attribut n'est pas automatiquement initialisé à 0, dans ce cas ça poserait peut etre un problème et il faudrait l'initialiser à une valeur au hasard, par exemple -1 ?
     int yWorkingPlace;
-    /*position of the Inhabitant*/
+    /*position of the Inhabitant dans le tableau de route*/
     int xInhabitantPos;
     int yInhabitantPos;
-    int delay=0;
-    int travelTime=0;
+    int delay=0;// indique le nombre de tic de timer ou l'habitant sera coincé sur cette case de route
+    int travelTime=0;// donne le temps pris par l'habitant pour son dernier trajet
     
     // constructor
     public Inhabitant(int xHouse, int yHouse) { // xHouse, yHouse : position de la maison dans le tableau de constructions
@@ -55,7 +55,9 @@ public class Inhabitant {
     	
     	
     	this.xLivingPlace = this.xHouse * 2 + 1;
+        this.xInhabitantPos= this.xLivingPlace;
     	this.yLivingPlace = this.xHouse * 2 + 1;
+        this.yInhabitantPos= this.yLivingPlace;
     	
     	/* ERREUR
     	// random image
