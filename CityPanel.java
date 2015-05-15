@@ -1,3 +1,5 @@
+package castorcity;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
@@ -137,3 +139,4 @@ public class CityPanel extends JPanel {
 	
 	
 }
+

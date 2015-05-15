@@ -1,3 +1,5 @@
+package castorcity;
+
 public class BoardRoad {
 	
     public Road[][] BoardRoad;

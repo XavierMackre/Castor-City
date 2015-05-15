@@ -1,3 +1,5 @@
+package castorcity;
+
 import java.awt.Image;
 import java.awt.Point;
 import java.util.LinkedList;
@@ -5,8 +7,8 @@ import java.util.LinkedList;
 public class Building {
     
 	public Image img;
-    public int x; // coordinate x of the building
-    public int y; // coordinate y of the building
+        public int x; // coordinate x of the building
+        public int y; // coordinate y of the building
 	public int maxPeople; // maximum number of people living-working here
 	public int curPeople; // current number of people living-working here
 	public LinkedList<Inhabitant> listCurPeople; // list of people living-working here
@@ -47,3 +49,4 @@ public class Building {
 
 		
 }
+

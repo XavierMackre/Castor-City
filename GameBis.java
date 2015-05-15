@@ -1,10 +1,11 @@
+package castorcity;
 
-// import java.awt.Window;
-// si on importe cette chose ça empeche le fonctionnement de ma classe Window
-// si c'est utile je peux changer le nom de ma classe Window pour faire marcher ça
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import castorcity.Inhabitant;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -21,6 +22,8 @@ public class GameBis {
 	public int pxHeight; // number of pixels of the map (height)
 	
 	public LinkedList<Inhabitant> population; // contains all the inhabitants
+        public LinkedList<Inhabitant> onTheRoadAgain; //contains all inhabitants currently moving*
+        public LinkedList<LinkedList<Inhabitant>> allInhabDeparture;
 	public double averageSatisfaction; // satisfaction of all the population
 	public BoardRoad boardRoad;
 	public BoardBuilding boardBuilding;
@@ -50,6 +53,12 @@ public class GameBis {
 		boardRoad = new BoardRoad(widthRoad, heightRoad); 
 		boardBuilding = new BoardBuilding(width, height);
 		
+		/*
+		// initialization of 50 inhabitants ready to moving in at the beginning of the game
+		for (int i=0 ; i<50 ; i++) {
+			population.add(new Inhabitant("Inhabitant"+i));
+		}
+		*/
                 //initialistation du timer
 		timer = new Timer (100, new TimerClass());
 		timer.start();
@@ -67,7 +76,8 @@ public class GameBis {
 
 	
 	/**
-	 * getter of width (width of the city)
+	 * getter of width
+	 * @return the width of the city
 	 */
 	public int getWidth() {
 		return this.width;
@@ -75,22 +85,19 @@ public class GameBis {
 	
 	
 	/**
-	 * getter of height (height of the city)
+	 * getter of height
+	 * @return the height of the city
 	 */
 	public int getHeight() {
 		return this.height;
 	}
 	
-	
-	/**
-	 * getter of the boardBuilding
-	 */
 	public BoardBuilding getBoardBuilding() {
 		return this.boardBuilding;
 	}
 	
 	
-	/** UTILE ?
+	/**
 	 * compute the average satisfaction of the whole population
 	 * @param LinkedList<Inhabitant> population
 	 * @return the average satisfaction (double)
@@ -102,18 +109,8 @@ public class GameBis {
 		}
 		return s/(population.size());
 	}
-	
-	
-	/** UTILE QUE SI ON GARDER UN ATTRIBUT "POPULATION" DANS LA CLASSE GAME
-	 * copy the population initialized in boardBuilding into Game
-	 */
-	public void UpdatePop() { // ATTENTION : A METTRE A JOUR AVEC LE TIMER
-		this.population = boardBuilding.getPopulation();
-	}
-
-	
         //méthode pour faire avancer l'heure de 5 minutes
-        public void horloge (){
+        public boolean horloge (){//renvoie true le matin et false l'après midi
             minute +=5;
             if(minute==60){
                 hour++;
@@ -131,37 +128,65 @@ public class GameBis {
                     }
                 }
             }
-        }
-        class TimerClass implements ActionListener {
-            public void actionPerformed (ActionEvent e) {
-                horloge();
-
+            if(hour<12){
+                return true;
+            }
+            else{
+                return false;
             }
         }
-	
         
-	/**
-	     * This is the array of lists of inhabitants ordered by their time of departure*
-	     * */
-	public LinkedList<LinkedList<Inhabitant>> allinhabDeparture() {
-	LinkedList<LinkedList<Inhabitant>> allinhabDeparture =new LinkedList<LinkedList<Inhabitant>>();
-	LinkedList<Inhabitant> temp;
+        private void move(boolean aller, Road[][] BoarderRoad){
+            /*the int is forced if we change the timer ticking*/
+            int q=(int)((hour*60+minute)/5);
+            int l=allInhabDeparture.get(q).size();
+            for(int i=0; i<l;i++){
+                this.onTheRoadAgain.add(allInhabDeparture.get(q).get(i));
+                allInhabDeparture.get(q).get(i).testChemin(aller);
+            }
+        
+            Iterator it = this.onTheRoadAgain.iterator();
+            while (it.hasNext()) {
+                Inhabitant curin = (Inhabitant)it.next();
+                if(curin.MovingPath(boardRoad.BoardRoad)==true){
+                onTheRoadAgain.remove(curin);
+            }
+        
 
-	for(int i=0;i<187;i++) {
-		temp=new LinkedList<Inhabitant>();
-		allinhabDeparture.add(temp);
-	}
-	
-	for(int i=0;i<population.size();i++){
-		int h=population.get(i).getworkingHour();
-		int m=population.get(i).getworkingMinute();
-		int t=60*h+m;
-		int q=t/5;
-		allinhabDeparture.get(q).add(population.get(i));
-	}
-	return allinhabDeparture;
-	}
-	
-	
+        }
+    }
+        
+        
+        class TimerClass implements ActionListener {
+            public void actionPerformed (ActionEvent e) {
+                boolean aller=horloge();
+                allInhabDeparture=allinhabDeparture();
+                move(aller,boardRoad.BoardRoad);
+
+            }
+    }
+    /**
+                 * This is the array of lists of inhabitants ordered by their time of departure*
+                 * */
+        public LinkedList<LinkedList<Inhabitant>> allinhabDeparture() {
+            LinkedList<LinkedList<Inhabitant>> allinhabDeparture =new LinkedList<LinkedList<Inhabitant>>();
+            LinkedList<Inhabitant> temp;
+
+            for(int i=0;i<187;i++) {
+                    temp=new LinkedList<Inhabitant>();
+                    allinhabDeparture.add(temp);
+            }
+            Iterator it = this.population.iterator();
+            while (it.hasNext()) {
+                Inhabitant curin = (Inhabitant)it.next();
+                int h=curin.getworkingHour();
+                int m=curin.getworkingMinute();
+                int t=60*h+m;
+                int q=(int)t/5;
+                allinhabDeparture.get(q).add(curin);
+            }
+            return allinhabDeparture;
+        }
+        
 	
 }

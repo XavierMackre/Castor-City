@@ -1,3 +1,6 @@
+package castorcity;
+import castorcity.Road;
+
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
@@ -36,6 +39,8 @@ public class Inhabitant {
     /*position of the Inhabitant*/
     int xInhabitantPos;
     int yInhabitantPos;
+    int delay=0;
+    int travelTime=0;
     
     // constructor
     public Inhabitant(int xHouse, int yHouse) { // xHouse, yHouse : position de la maison dans le tableau de constructions
@@ -109,7 +114,6 @@ public class Inhabitant {
     public int getyHouse() {
     	return yHouse;
     }
-    
     /**
      * @param aller
      */
@@ -139,32 +143,62 @@ public class Inhabitant {
             yshift=-yshift;
         }
     }
-    
-    
-    public void MovingPath (Road[][] BoarderRoad){
+    public boolean MovingPath (Road[][] BoardRoad){
+        this.travelTime+=5;
+        // if the inhabitant is in a traffic jam hes waits 
+        if(this.delay!=0){
+            this.delay +=-1;
+            return false;
+        }
         //allows to generate random number between 0 and 1
         Random randomGenerator = new Random();
-        int randomInt = randomGenerator.nextInt(1);
         int xShifted=xInhabitantPos+xshift;
         int yShifted=yInhabitantPos+yshift;
+        boolean moved=false;//will get true when the Inhabitant will have moved
 
-        
-        if(xShifted<0 || xShifted>BoarderRoad[0].length-1){
-            yInhabitantPos+= yshift; 
+        BoardRoad[yInhabitantPos][xInhabitantPos].jam(false);
+        if(xShifted<0 || xShifted>BoardRoad[0].length-1){
+            yInhabitantPos+= yshift;
+            ydirect+=yshift;
+            moved=true;
         }
         else{
-            if(BoarderRoad[xInhabitantPos+xshift]==null){
-                    yInhabitantPos+= yshift;
+            if(BoardRoad[xShifted]==null){
+                yInhabitantPos+= yshift;
+                ydirect+=yshift;
+                moved=true;
             }
         }
-        if(yInhabitantPos+yshift<0 || (yInhabitantPos+yshift)>BoarderRoad.length-1){
-            xInhabitantPos+= xshift; 
-        }
-        else{
-            if(BoarderRoad[yInhabitantPos+yshift]==null){
+        if(moved==false){
+            if((yShifted+yshift<0) || (yShifted>BoardRoad.length-1)){
+                xInhabitantPos+= xshift; 
+                xdirect+=xshift;
+                moved=true;
+            }
+            else{
+                if(BoardRoad[yShifted]==null){
                     xInhabitantPos+= xshift;
+                    xdirect+=xshift;
+                    moved=true;
+                }
             }
         }
+        if(moved==false){
+            int randomInt = randomGenerator.nextInt(1);
+            if(randomInt==1){
+                xInhabitantPos+= xshift;
+                xdirect+=xshift;
+            }
+            else{
+                yInhabitantPos+= yshift;
+                ydirect+=yshift;
+            }
+        }
+        if((xdirect==0)&&(ydirect==0)){
+            return true;
+        }
+        this.delay=BoardRoad[yInhabitantPos][xInhabitantPos].jam(true);
+        return false;
        
     }
 }
