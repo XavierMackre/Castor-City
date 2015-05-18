@@ -203,4 +203,36 @@ public class Inhabitant {
         return false;
        
     }
+    /* méthode qui permet de calculer la satisfaction d'un habitant PAS FINIE!! pour l'instant ne prend en compte que le lieu de vie*/
+    public int Satisfaction(){
+    			int y=this.yHouse; /*Coordoonées de la board building*/
+    			int x=this.xHouse;
+    			if(x!=0&&y!=0){
+    			if(BuildingType(x,y+1)==2 || BuildingType(x,y-1)==2|| BuildingType(x-1,y)==2 || BuildingType(x+1,y)==2){ /*pour les cellules random du tableau*/
+    				satisfaction=satisfaction-1;
+    			}
+    			}
+    			/*On vérifie pour les maisons qui sont aux bords du tableau de maisons*/
+    			else{
+    			if(x==0){
+    				if(BuildingType(x,y+1)==2||BuildingType(x,y-1)==2){
+    					satisfaction=satisfaction-1;
+    				}
+    			}
+    			if(y==0){
+    				if(BuildingType(x-1,y)==2||BuildingType(x+1,y)==2){
+    					satisfaction=satisfaction-1;
+    				}	
+    			}
+    			} /*à mettre en fin de code pour vérifier qu'on ne dépasse pas les bornes mises en place*/
+    			if(satisfaction<0){
+    				satisfaction=0;
+    			}
+    			if(satisfaction>4){
+    				satisfaction=4;
+    			}
+    			return satisfaction;
+    		
+    		
+    }
 }
