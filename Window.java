@@ -1,5 +1,3 @@
-package castorcity;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -23,6 +21,9 @@ public class Window extends JFrame {
 	int lastY; // y-coordinate of the last click
 	Graphics buffer;
 	BufferedImage BackGround;
+	Graphics bufferTitle;
+	BufferedImage BackGroundTitle;
+	boolean isTitle; // if true: the title menu is showed on the screen
 	
 	
 	// constructor
@@ -34,7 +35,7 @@ public class Window extends JFrame {
     	this.boardBuilding = boardBuilding;
     	
         this.setTitle("Castor City");
-        this.setSize(pxWidth+500, pxHeight+50);
+        this.setSize(pxWidth+298, pxHeight+45);
         // this.setResizable(false);
         this.setLocationRelativeTo(null); // set the window at the centre of the screen
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,6 +43,19 @@ public class Window extends JFrame {
         
         BackGround = new BufferedImage (getSize().width, getSize().height, BufferedImage.TYPE_INT_RGB);
         buffer = BackGround.getGraphics();
+        
+        BackGroundTitle = new BufferedImage (getSize().width, getSize().height, BufferedImage.TYPE_INT_RGB);
+        bufferTitle = BackGroundTitle.getGraphics();
+        isTitle = true;
+        
+        // DISPLAY OF THE TITLE SCREEN
+        try {
+			Image img = ImageIO.read(new File("Title.jpg"));
+			bufferTitle.drawImage(img, getInsets().left, getInsets().top, this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        repaint();
         
         // DISPLAY OF ROADS
      	for(int i=0; i<boardRoad.getWidth(); i++) { // cover the columns
@@ -94,6 +108,7 @@ public class Window extends JFrame {
     	}	
 
         this.addMouseListener(new Listener());
+        
     }
     
     
@@ -101,6 +116,8 @@ public class Window extends JFrame {
 		
 		// clic de la souris
 		public void mouseClicked(MouseEvent event) { 
+			
+			isTitle = false;
 			
 			int x = event.getX(); // coordonnées du dernier clic par rapport au panel (sans les bordures)
 			int y = event.getY();
@@ -299,7 +316,11 @@ public class Window extends JFrame {
     
     public void paint(Graphics g) {
     	
-    	g.drawImage(BackGround, 0, 0, this);
+    	if (isTitle) {
+    		g.drawImage(BackGroundTitle, 0, 0, this);
+    	} else {
+    		g.drawImage(BackGround, 0, 0, this);
+    	}
 	}
 
 }
