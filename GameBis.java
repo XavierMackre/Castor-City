@@ -1,10 +1,11 @@
 package castorcity;
 
-import java.awt.Window;
+import castorcity.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import castorcity.Inhabitant;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
@@ -23,7 +24,7 @@ public class GameBis {
 	
 	public LinkedList<Inhabitant> population; // contains all the inhabitants
         public LinkedList<Inhabitant> onTheRoadAgain; //contains all inhabitants currently moving*
-        public LinkedList<LinkedList<Inhabitant>> allInhabDeparture;
+        public ArrayList<LinkedList<Inhabitant>> allInhabDeparture;
 	public double averageSatisfaction; // satisfaction of all the population
 	public BoardRoad boardRoad;
 	public BoardBuilding boardBuilding;
@@ -48,6 +49,7 @@ public class GameBis {
 		this.heightRoad = height * 2 + 1;
 		this.pxWidth = (width * 50) + ((width + 1) * 20); // ATTENTION TAILLE DES IMAGES : 50*50px (constructions), 20px (roads) (can be changed)
 		this.pxHeight = (width * 50) + ((width + 1) * 20);
+                this.onTheRoadAgain= new LinkedList<Inhabitant>();
 		
 		// initialization of the boards of roads and constructions
 		boardRoad = new BoardRoad(widthRoad, heightRoad); 
@@ -138,18 +140,19 @@ public class GameBis {
         
         private void move(boolean aller, Road[][] BoarderRoad){
             /*the int is forced if we change the timer ticking*/
-            int q=(int)((hour*60+minute)/5);
-            int l=allInhabDeparture.get(q).size();
-            for(int i=0; i<l;i++){
-                this.onTheRoadAgain.add(allInhabDeparture.get(q).get(i));
-                allInhabDeparture.get(q).get(i).testChemin(aller);
+            
+            int q=(int)((hour*60+minute)/5)-1;//je pense que le int prend l'arrondi et pas la partie entière
+            Iterator iter= this.allInhabDeparture.get(q).iterator();
+             while (iter.hasNext()){
+                Inhabitant curin = (Inhabitant)iter.next();
+                this.onTheRoadAgain.add(curin);
+                curin.testChemin(aller);
             }
-        
             Iterator it = this.onTheRoadAgain.iterator();
             while (it.hasNext()) {
                 Inhabitant curin = (Inhabitant)it.next();
                 if(curin.MovingPath(boardRoad.BoardRoad)==true){
-                onTheRoadAgain.remove(curin);
+                    onTheRoadAgain.remove(curin);
             }
         
 
@@ -168,15 +171,15 @@ public class GameBis {
     /**
                  * This is the array of lists of inhabitants ordered by their time of departure*
                  * */
-        public LinkedList<LinkedList<Inhabitant>> allinhabDeparture() {
-            LinkedList<LinkedList<Inhabitant>> allinhabDeparture =new LinkedList<LinkedList<Inhabitant>>();
+        public ArrayList<LinkedList<Inhabitant>> allinhabDeparture() {
+            ArrayList<LinkedList<Inhabitant>> allinhabDeparture =new ArrayList<LinkedList<Inhabitant>>(288);
             LinkedList<Inhabitant> temp;
 
-            for(int i=0;i<187;i++) {
+            for(int i=0;i<287;i++) {
                     temp=new LinkedList<Inhabitant>();
-                    allinhabDeparture.add(temp);
+                    allinhabDeparture.add(i, temp);
             }
-            Iterator it = this.population.iterator();
+            Iterator it = this.boardBuilding.housePopulation.iterator();
             while (it.hasNext()) {
                 Inhabitant curin = (Inhabitant)it.next();
                 int h=curin.getworkingHour();
